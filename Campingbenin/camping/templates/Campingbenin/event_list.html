@@ -1,0 +1,57 @@
+{% extends 'Campingbenin/base.html' %}
+{% load static %}
+
+{% block content %}
+  {% comment %} <h1>Liste des événements</h1>
+  <ul>
+    {% for event in events %}
+      <li>{{ event.name }}</li>
+
+    {% endfor %}
+  </ul> {% endcomment %}
+  <section class="food_section layout_padding-bottom " style="margin-right:50px">
+    <div class="container">
+      <div class="heading_container">
+        <h2 style="color: #001042;">
+          Nos Events
+        </h2>
+      </div> 
+<div class="filters-content ">
+    <div class="row grid " >
+        {% for event in events %}
+      <div class="col-sm-6 col-lg-4 all pizza fade-in">
+        <div class="box">
+          <div>
+            <div class="img-box">
+              <img src="{% static 'images/p1.jpg' %}" alt="" height="930px">
+            </div>
+            <div class="detail-box">
+              <h5>
+                {{ event.name }}
+              </h5>
+              <p>
+                {{ event.description }}
+                {{ event.location }}
+                Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+              </p>
+              <div class="options">
+                <button id="voir-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Voir</button>
+                <a href="reservation.html" type="button" id="reserver-btn" style="text-decoration: none;">
+                        Reserver
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>                                                           
+    </div>
+  </div>
+  <div class="btn-box">
+    <a  type="button" href="reservation.html" id="reserver-btn"  style="text-decoration: none; text-align: center;"><span> Voir Plus</span>  </a>
+  </div>
+</div>
+</section>
+{% endblock %}
+
+

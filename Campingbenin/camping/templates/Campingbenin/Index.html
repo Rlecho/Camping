@@ -1,0 +1,824 @@
+{% extends 'Campingbenin/base.html' %}
+ {% load static %}
+	{% block style %}  
+	<style> 
+     
+.ri{
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.2s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.slide-in-left {
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 2s ease-in-out;
+}  
+
+{% comment %} /* .ru{
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.slide-in-right {
+  opacity: 1;
+  transform: translateX(0);
+} */ {% endcomment %}
+
+
+.card {
+  position: relative;
+  overflow: hidden;
+}
+
+.card img {
+  transition: transform 0.5s;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+    
+.card:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+} 
+     
+.card:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    {% comment %} /* background-image: url(./images/g1.png); */ {% endcomment %}
+    background-size: cover; 
+    opacity: 0.5;
+    transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  } 
+    
+  .card:hover::before,
+  .card:hover::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .card:hover h2 {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .card:hover p {
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  
+  .card:hover i {
+    color: #fff;
+    font-size: 40px;
+  }
+  
+  .card:hover h2,
+  .card:hover p,
+  .card:hover i {
+    transition: all 0.3s ease-in-out;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .card h2,
+  .card p,
+  .card i {
+    opacity: 0;
+    transform: translateY(20px);
+    text-align: center;
+  }
+  
+  .card h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .card p {
+    font-size: 16px;
+    margin: 0;
+  }
+  
+  .card i {
+    font-size: 30px;
+    margin: 0 10px;
+  }
+
+    .slide1 {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+   
+}
+
+.slide1.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.slide1 h6,
+.slide1 p {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide1.active h6,
+.slide1.active p {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+
+.ddd {
+margin: 20px;
+opacity: 0;
+transform: translateX(-150%);
+animation: slideIn 2s ease-out forwards;
+}
+.dd{
+margin: 20px;
+background-color: rgba(18, 18, 48, 0.908);
+border-radius: 20px;
+}
+.ddd h6, .ddd p {
+opacity: 0;
+transform: translateY(50px);
+/* animation: slideIns 1s ease-out forwards; */
+ animation: slideIns 5s ease-out 2s forwards; 
+ animation-iteration-count: infinite;
+}
+
+@keyframes slideIns {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-150%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+body {
+  background-image: url("{% static './images/c.jpg' %}");
+  background-size: cover; 
+  background-repeat: no-repeat; 
+}
+
+.blink {
+  text-align: center;
+  display: inline-block;
+  border-radius:10px;
+  position:absolute;
+  bottom: 10px;
+  right: 10px;
+}   
+.blink p {
+  display: inline-block;
+  margin: 0;
+  padding: 20px;
+  font-size: 14px;
+  
+  color: #FFF;
+  {% comment %} /* background-color: #000; */ {% endcomment %}
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.scroll-box {
+  overflow: hidden;
+  position:absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.scroll-text {
+  white-space: nowrap;
+  display: inline-block;
+  animation: marquee 10s linear infinite;
+  font-size: 32px;
+  font-weight: 900px;
+  color: orange;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}	
+
+
+	</style>
+	
+{% endblock style %}
+
+  {% block content %}
+
+    {% comment %} <!--   Navigation  --> {% endcomment %}
+
+       {% comment %} <!-- Navbar Start --> {% endcomment %}
+       <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container">
+          <a class="navbar-brand" href="index.html" id="logo"> <img src="{% static 'images/log.PNG' %}" alt="" style="height: 50px; width: 70px;" ></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span><i class="fa-solid fa-bars"></i></span>
+          </button> 
+          <div class="collapse navbar-collapse" id="mynavbar">
+            <center>
+            <ul class="navbar-nav me-auto " >
+              <li class="nav-item">
+                <a class="nav-link active" href="index.html">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#book">Nos Events</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#services">Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#gallary">Gallerie</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#about">A propos</a>
+              </li>
+            </ul>
+          </center>
+            <form class="d-flex">
+              <input class="form-control me-2" type="text" placeholder="Search">
+              <button class="btn btn-primary" type="button">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    {% comment %} <!-- Navbar End -->
+    <!--   Navigation -->
+    <!-- Main Site Section --> {% endcomment %}
+    <main>
+   <!-- SLIDER -->
+   <div class="owl-carousel owl-theme hero-slider" style="margin-left: 10px; margin-top:10px; margin-bottom: 20px;">
+    <div class="slide slide1" >
+        <div class="container dd" style="height: 230px;">
+            <div class="row">
+                <div class="col-12 text-center text-white ddd" style="position: relative;right:20px;">
+                    <h6 class="text-white text-uppercase">Belle expérience</h6>
+                    <p class="">Lorem ipsum dolor sit amet consectetur<br /> adipisicing elit. Accusantium quia atque nemo ad modi officiis
+                      iure, autem nulla tenetur repellendus. </p>
+                    <a href="#blog" class="btn btn-outline-light ms-3">Nos Events</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slide slide2">
+      <div class="scroll-box">
+        <!-- <div  class="scroll-text">Bla bla bla bla bla bla bla bla bla bla serge serge serge 123 123 123  </div> -->
+         <marquee behavior="" direction="">Bla bla bla bla bla bla bla bla bla bla serge serge serge 123 123 123 </marquee>
+      </div>
+        <div class="container dd" style="height: 230px;">
+        
+          
+            <div class="row">
+                <div class="col-12 col-lg-10 offset-lg-1 text-white" style="margin: 20;">
+                    <h6 class="text-white text-uppercase" style="margin: 20;"></h6>
+                    <p class="">Lorem ipsum dolor sit amet consectetur<br /> adipisicing elit. Accusantium quia atque nemo ad modi officiis
+                      iure, autem nulla tenetur repellendus. </p>
+                    <!-- <a href="#services" class="btn btn-brand ms-3">Reserver</a> -->
+                    <a href="#blog" class="btn btn-outline-light ms-3">Reserver</a>
+                </div>
+            </div>
+        </div>
+        <div class="blink bg-black">
+          <p>100 places</p>
+        </div>      
+        </div>
+</div>
+
+
+        <!--  Blog Carousel  -->
+
+    <section class="food_section layout_padding-bottom " style="margin-right:50px">
+        <div class="container">
+          <div class="heading_container">
+            <h2 style="color: #001042;">
+              Nos Events
+            </h2>
+          </div>                
+          <div class="filters-content ">
+            <div class="row grid " >
+              <div class="col-sm-6 col-lg-4 all pizza fade-in">
+                <div class="box">
+                  <div>
+                    <div class="img-box">
+                      <img src="{% static 'images/p1.jpg' %}" alt="" height="930px">
+                    </div>
+                    <div class="detail-box">
+                      <h5>
+                        Titre de L'event
+                      </h5>
+                      <p>
+                        Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                      </p>
+                      <div class="options">
+                        <button id="voir-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Voir</button>
+                        <a href="reservation.html" type="button" id="reserver-btn" style="text-decoration: none;">
+                                Reserver
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 all pizza fade-in">
+                <div class="box">
+                  <div>
+                    <div class="img-box">
+                      <img src="{% static 'images/p2.jpg' %}" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h5>
+                        Titre de L'event
+                      </h5>
+                      <p>
+                        Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                      </p>
+                      <div class="options">
+                        <button id="voir-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Voir</button>
+
+                        <a href="reservation.html" type="button" id="reserver-btn" style="text-decoration: none;">
+                          Reserver
+                  </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 all pizza fade-in">
+                <div class="box">
+                  <div>
+                    <div class="img-box">
+                      <img src="{% static 'images/p2.jpg' %}" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h5>
+                        Titre de L'event
+                      </h5>
+                      <p>
+                        Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                      </p>
+                      <div class="options">
+                        <button id="voir-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Voir</button>
+                        <a href="reservation.html" type="button" id="reserver-btn" style="text-decoration: none;">
+                          Reserver
+                  </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 all pizza fade-in">
+                <div class="box">
+                  <div>
+                    <div class="img-box">
+                      <img src="{% static 'images/p2.jpg' %}" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h5>
+                        Titre de L'event
+                      </h5>
+                      <p>
+                        Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                      </p>
+                      <div class="options">
+                        <button id="voir-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Voir</button>
+                        <a href="reservation.html" type="button" id="reserver-btn" style="text-decoration: none;">
+                          Reserver
+                  </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 all pizza fade-in">
+                <div class="box">
+                  <div>
+                    <div class="img-box">
+                      <img src="{% static 'images/p2.jpg' %}" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h5>
+                        Titre de L'event
+                      </h5>
+                      <p>
+                        Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                      </p>
+                      <div class="options">
+                        <button id="voir-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Voir</button>
+                        <a href="reservation.html" type="button" id="reserver-btn" style="text-decoration: none;">
+                          Reserver
+                  </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-4 all pizza fade-in">
+                <div class="box">
+                  <div>
+                    <div class="img-box">
+                      <img src="{% static 'images/p2.jpg' %}" alt="">
+                    </div>
+                    <div class="detail-box">
+                      <h5>
+                        Titre de L'event
+                      </h5>
+                      <p>
+                        Veniam debitis quaerat officiis quasi cupiditate quo, quisquam velit, magnam voluptatem repellendus sed eaque
+                      </p>
+                      <div class="options">
+                        <button id="voir-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Voir</button>
+                        <a href="reservation.html" type="button" id="reserver-btn" style="text-decoration: none;">
+                          Reserver
+                  </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                                                                            
+            </div>
+          </div>
+          <div class="btn-box">
+            <a  type="button" href="reservation.html" id="reserver-btn"  style="text-decoration: none; text-align: center;"><span> Voir Plus</span>  </a>
+          </div>
+        </div>
+    </section>
+    <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal">chap chap</button>
+  </div> 
+<!-- Modal -->
+  <div  class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+          <section class="container">
+            <div class="site-content">
+                <div class="posts">
+                    <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="post-image">
+                            <div>
+                                <img src=" {% static 'images/1.jpeg' %}" class="img" alt="blog1" style="height:350px; position: relative; right:80px;" >
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <h4 href="#">blablabla blablabla blablabla bla bal</h4>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque voluptas deserunt beatae
+                                adipisci iusto totam placeat corrupti ipsum, tempora magnam incidunt aperiam tenetur a
+                                nobis, voluptate, numquam architecto fugit. Eligendi quidem ipsam ducimus minus magni
+                                illum similique veniam tempore unde?
+                            </p>
+                            <button class="btn post-btn">Plus &nbsp; <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <hr>
+                 
+                </div>
+                <aside class="sidebar">
+                    <div class="category" style="position: relative; right:80px;">
+                        <h2>Informations</h2>
+                        <ul class="category-list">
+                            <li class="list-items" data-aos="fade-left" data-aos-delay="100">
+                          <p>Titre de levent bla bla bla bla bla</p>   
+                            </li>
+                            <li class="list-items" data-aos="fade-left" data-aos-delay="200">
+                            <p>  Date et Heure</p> 
+                            </li>
+                            <li class="list-items" data-aos="fade-left" data-aos-delay="300">
+                              <p> Lieu ou Endroit</p>
+                            </li>
+                            <li class="list-items" data-aos="fade-left" data-aos-delay="400">
+                            <p>Nombre de Personnes</p>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </section>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Section Services Start -->
+    <section class="services" id="services">
+      <div class="container ri">
+        <div class="main-txt">
+          <h1 style="font-weight: 900px; color: #fff;">Activités</h1>
+        </div>
+        <div>
+         <h2 style="color: #fff;font-weight:20px; margin-left: 30px;margin-top: 10px;">Activités écolos</h2>   
+               <div class="row" style="margin-top: 30px;">
+          <div class="col-md-4 py-3 py-md-0">
+            <div class="card">
+              <div class="card-body">
+                <h3>Découvrir</h3>
+                <p style="height: 70px;">Randonnées écologiques - Ethobotanique - Soirées à thème </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 py-3 py-md-0">
+            <div class="card">
+              <div class="card-body">
+                <h3 >Découvrir</h3>
+                <p style="height: 70px;">Visites des Coopératives Villageoises - Observation de la Faune et écoéthologie - Découvertes de l'histoire local</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 py-3 py-md-0">
+            <div class="card">
+              <div class="card-body">
+                <h3>Découvrir</h3>
+                <p style="height: 70px;">Activités Artistiques et Artisanales - Découvertes des principes de l'Agriculture Paysanne</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div>
+        <h2 style="color: #fff; margin-left: 30px;margin-top: 10px;margin-top: 10px;">Activités Sportives </h2>
+          <div class="row" style="margin-top: 30px;">
+          <div class="col-md-4 py-3 py-md-0">
+            <div class="card">  
+              <div class="card-body">
+                <h3>Découvrir</h3>
+                <p style="height: 70px;">Vélo - Sport / Jogging / Marche</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-4 py-3 py-md-0">
+
+            <div class="card">
+              <div class="card-body">
+                <h3>Découvrir</h3>
+                <p style="height: 70px;">Randonnéé - Paintball Game</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-4 py-3 py-md-0">
+
+            <div class="card">
+              <div class="card-body">
+                <h3>Découvrir</h3>
+                <p style="height: 70px;">Trésors Caché - Football</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 style="color: #fff; margin-left: 30px;">Activités Ludiques</h2>
+        <div class="row" style="margin-top: 30px;">
+
+          <div class="col-md-4 py-3 py-md-0">
+
+            <div class="card">
+              <div class="card-body">
+                <h3>Découvrir</h3>
+                <p style="height: 70px;">Lecture - Peinture - Coloriage our adultes</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-4 py-3 py-md-0">
+
+            <div class="card">
+              <div class="card-body">
+                <h3>Découvrir</h3>
+                <p style="height: 70px;">Barbecure - Projections Films - Contes autour d'un feu de Camp</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-4 py-3 py-md-0">
+
+            <div class="card">
+              <div class="card-body">
+                <h3>Découvrir</h3>
+                <p style="height: 70px;">Body Panting - Mimes - Cartes / Ludo / Awalé / Scrabble</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+   </section>
+    <!-- Section Services End -->
+  
+    <!-- Section Gallary Start -->
+    <section class="gallary" id="gallary">
+        <div class="container">
+          <div class="main-txt">
+            <h1>Gallerie</h1>
+          </div> 
+          <div class="row" style="margin-top: 30px;">
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card box21">
+                    <img src=" {% static './images/g1.png' %} " alt="" height="230px">
+                    <div class="box-content">
+                        <div class="title">Titre de la carte 1</div>
+                        <div class="description">Description de la carte 1</div>
+                        <a href="#" class="read-more">Lire la suite</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card box21">
+                    <img src="{% static './images/g5.png' %}" alt="" height="230px">
+                    <div class="box-content">
+                        <div class="title">Titre de la carte 2</div>
+                        <div class="description">Description de la carte 2</div>
+                        <a href="#" class="read-more">Lire la suite</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card box21">
+                    <img src="{% static './images/p1.jpg' %}" alt="" height="230px">
+                    <div class="box-content">
+                        <div class="title">Titre de la carte 3</div>
+                        <div class="description">Description de la carte 3</div>
+                        <a href="#" class="read-more">Lire la suite</a>
+                    </div>
+                </div>
+            </div>
+        </div>  
+          <div class="row" style="margin-top: 30px;">
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card box21">
+                    <img src="{% static './images/g1.png' %}" alt="" height="230px">
+                    <div class="box-content">
+                        <div class="title">Titre de la carte 1</div>
+                        <div class="description">Description de la carte 1</div>
+                        <a href="#" class="read-more">Lire la suite</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card box21">
+                    <img src="{% static './images/g5.png' %}" alt="" height="230px">
+                    <div class="box-content">
+                        <div class="title">Titre de la carte 2</div>
+                        <div class="description">Description de la carte 2</div>
+                        <a href="#" class="read-more">Lire la suite</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 py-3 py-md-0" style="margin-bottom: 20px;">
+                <div class="card box21">
+                    <img src="{% static './images/p1.jpg' %}" alt="" height="230px">
+                    <div class="box-content">
+                        <div class="title">Titre de la carte 3</div>
+                        <div class="description">Description de la carte 3</div>
+                        <a href="#" class="read-more">Lire la suite</a>
+                    </div>
+                </div>
+            </div>
+        </div>         
+        </div>
+      </section>
+      <!-- Section Gallary End -->
+     <section>
+        <div class="carousel-container">
+          <div class="intro" style="position:relative;bottom:75px;" >
+            <h1 style="color: #fff;">Nos partenaires</h1>
+            <p class="mx-auto" style="color: #fff;"><h1 style="color: #fff;">Nos Partenaires</h1><br> Rejoignez la grande famille</p>
+          </div>
+        
+          <div class="carousel">
+            <img src=" {% static 'images/logoDS.jpeg' %}" alt="" style="width:5%;height:80px">
+            <img src=" {% static 'images/logo.jpeg' %} " alt="" style="width:5%;height:80px">
+            <img src=" {% static 'images/3.png' %} " alt="" style="width:5%;height:80px">
+            <img src=" {% static 'images/logoITSS.png' %} " alt="" style="width:5%;height:80px">
+            <img src=" {% static 'images/4.png' %} " alt="" style="width:5%;height:80px">
+            <img src=" {% static 'images/5.png' %} " alt="" style="width:5%;height:80px">
+          </div>
+        </div>
+      </section>
+
+
+    <!-- About Start -->
+    <section class="about" id="about">
+        <div class="container">
+  
+          <div class="main-txt">
+            <h1>About Us</h1>
+          </div>
+          <div class="row" style="margin-top: 50px;">
+  
+            <div class="col-md-6 py-3 py-md-0">
+              <div class="card">
+                {% comment %} <!-- <img src="./images/about-img.png" alt=""> --> {% endcomment %}
+              </div>
+            </div>
+            <div class="col-md-6 py-3 py-md-0">
+              <h2>How Travel Agency Work</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident perferendis dolorem, numquam earum at nam beatae voluptate natus consectetur facere, saepe cupiditate ut exercitationem deserunt, facilis quam perspiciatis autem iure illo harum minima. Quas, vitae aperiam laudantium alias asperiores nulla rerum, nihil eveniet perferendis sint illum accusamus officiis aliquam nam.</p>
+              <button id="about-btn">Read More...</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- About End -->
+    </main>
+    <!--- Main Site Section -->
+    <!-- - Footer  -->
+
+
+
+       <!--  Footer  -->
+
+       <footer class="footer col-12" style="height:320px;">
+        <div class="container col-10">
+            <div class="about-us " data-aos="fade-right" data-aos-delay="200" >
+                <h2>About us</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quia atque nemo ad modi officiis
+                    iure, autem nulla tenetur repellendus.</p>
+            </div>
+            <div class="follow col-8" data-aos="fade-left" data-aos-delay="200">
+                <h2>Follow us</h2>
+                <p>Let us be Social</p>
+                <div>
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+        <div class="rights flex-row">
+            <h4 class="text-gray">
+              &copy; 2023 MonSiteDeCamping.com - Tous droits réservés
+            </h4>
+        </div>
+        <div class="move-up">
+            <span><i class="fas fa-arrow-circle-up fa-2x"></i></span>
+        </div>
+    </footer>
+
+    <!--  Footer  -->
+
+    <!-- - Footer  -->
+  			
+	{% endblock content %}
+
+	{% block script %}  
+  <script>
+
+  </script>
+	{% endblock script %}
+
+
+</html>

@@ -1,0 +1,15 @@
+{% extends 'Campingbenin/base.html' %}
+{% load static %}
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+
+{% block content %}
+    <h2>Register</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% comment %} <label for="{{ form.phone_number.id_for_label }}">Phone number:</label>
+        {{ form.phone_number }} {% endcomment %}
+        <button type="submit">Register</button>
+    </form>
+{% endblock %}
